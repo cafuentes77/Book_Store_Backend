@@ -28,5 +28,14 @@ export const destructuringUserData = (data) => {
         admin
     };
 
-    return [globalDataUser, email, password]
+    return [globalDataUser, email, password];
+};
+
+
+export const normalizeUserdata = (email, password, ...generalData) => {
+    return {
+        email,
+        password,
+        ...generalData
+    };
 }

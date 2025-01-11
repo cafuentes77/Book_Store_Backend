@@ -33,9 +33,9 @@ export const validatePassword = (password, birthday) => {
     const lettersChain = password.replace(/[^A-Zaz]+/g, '');
 
     for (let i = 0; i < lettersChain.length - 2; i++) {
-        const letterOne = lettersChain.chartCodeAt(i);
-        const letterTwo = lettersChain.chartCodeAt(i + 1);
-        const letterThree = lettersChain.chartCodeAt(i + 2);
+        const letterOne = lettersChain.charCodeAt(i);
+        const letterTwo = lettersChain.charCodeAt(i + 1);
+        const letterThree = lettersChain.charCodeAt(i + 2);
 
         if((letterOne + 1 === letterTwo) && (letterTwo + 1 === letterThree)) {
             throw new ValidateError('La contraseña no puede tener tres letras ascendentes consecutivas');

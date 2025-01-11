@@ -1,4 +1,4 @@
-import { ValidateError } from "../../errors/TypeError";
+import { ValidateError } from "../../errors/TypeError.js";
 
 
 export const ensureEmailNotTaken = async(Model, email) => {
