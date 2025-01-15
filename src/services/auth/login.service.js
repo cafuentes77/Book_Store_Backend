@@ -10,11 +10,11 @@ import { AuthError } from '../../errors/TypeError.js';
 
 const secretKey = config.secretKey;
 
-export const loginService = async (email, password) => {
+export const loginService = async ({email, password}) => {
     try {
         const user = await Usuario.findOne({ where: { email } });
         isNotFound(user);
-        const passwordMatch = await comparePassword(password);
+        const passwordMatch = await comparePassword(password, user.password);
         isNotMatchedPassword(passwordMatch);
 
         const privateUser = normalizeUserPrivateData(user);

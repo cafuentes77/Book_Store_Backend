@@ -16,6 +16,7 @@ export const hashPassword = async (plainPassword) => {
 export const comparePassword = async (plainPassword, hashedPassword) => {
     try {
         const password = await bcrypt.compare(plainPassword, hashedPassword);
+        return password;
     } catch (error) {
         throw new InternalServerError('No pudimos desencriptar la contraseña', 500, error);
     }
