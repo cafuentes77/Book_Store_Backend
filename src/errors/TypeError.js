@@ -31,3 +31,12 @@ export class InternalServerError extends CustomError {
     }
 }
 
+export class AuthError extends CustomError {
+    constructor(message, statusCode, details) {
+        super(
+            message || 'Error de autenticación', 
+            statusCode || 500, 
+            details);
+        }
+}
+

@@ -43,4 +43,8 @@ export const validatePassword = (password, birthday) => {
     }
 
     return true;
+};
+
+export const isNotMatchedPassword = (matchResult) => {
+    
 }

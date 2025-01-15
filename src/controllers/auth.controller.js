@@ -1,35 +1,33 @@
-import { Usuario } from "../models/Usuario.model.js";
-import { hashPassword } from "../services/password/hash.service.js";
-import { destructuringUserData, normalizeUserdata } from "../utils/normalize/user.js"
-import { ensureEmailNotTaken } from "../utils/validators/models.js";
-import { validatePassword } from "../utils/validators/password.js";
+import { registerService } from '../services/auth/registerService.js';
+import { Usuario } from '../models/Usuario.model.js';
+import { loginService } from '../services/auth/login.service.js';
 
-
-
-export const register = async (req, res, next) => {
+export const register = async(req, res, next) => {
     try {
-        const [userGeneralData, email, password] = destructuringUserData(req.body);
-
-        await ensureEmailNotTaken(Usuario, email);
-        validatePassword(password, userGeneralData.fecha_nacimiento);
-
-        const hashedPassword = await hashPassword(password);
-        /*const userData = normalizeUserdata(email, password, ...userGeneralData);*/
-
-        const userData = {
-            ...userGeneralData,
-            email,
-            password: hashedPassword
-        };
-
-        const user = await Usuario.create(userData);
-
+        const user = await registerService(req.body, Usuario);
+        
         res.status(201).json({
-            message: 'Usuario registrado con éxito',
+            message: 'Usuario Registrado con éxito',
             status: 201,
-            data: user // no debos mostrar todos los datos del usuario en una respuesta
+            data: user //Solo para fines pedagógicos, no debo mostrar todos los datos del usuario en una respuesta
+        });
+
+    } catch (error) {
+        next(error);
+    }
+};
+
+export const login = async(req, res, next) => {
+    try {
+        const { user, token } = await loginService(req.body);
+
+        res.status(202).json({
+            message: 'Usuario autetnicado con éxito',
+            status: 202,
+            data: { user, token }
         });
     } catch (error) {
-        next (error);
+        console.error(error);
+        next(error);
     }
-}
+};

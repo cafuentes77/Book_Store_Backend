@@ -32,10 +32,21 @@ export const destructuringUserData = (data) => {
 };
 
 
-export const normalizeUserdata = (email, password, ...generalData) => {
+export const normalizeUserdata = (email, password, generalData = {}) => {
     return {
         email,
         password,
         ...generalData
+    };
+}
+
+export const normalizeUserPrivateData = (user) => {
+    const { id, nombre, apellido_paterno, apellido_materno, email } = user;
+    return {
+        id,
+        nombre,
+        apellido_paterno,
+        apellido_materno,
+        email
     };
 }
