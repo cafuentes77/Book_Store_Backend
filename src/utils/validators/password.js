@@ -46,5 +46,5 @@ export const validatePassword = (password, birthday) => {
 };
 
 export const isNotMatchedPassword = (matchResult) => {
-    
-}
+    if(!matchResult) throw new AuthError('Credenciales inválidas');
+};

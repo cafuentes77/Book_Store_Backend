@@ -9,11 +9,11 @@ export const registerService = async (data, Model) => {
     try {
         const [userGeneralData, email, password ] = destructuringUserData(data);
 
-        await ensureEmailNotTaken(Usuario, email);
+        await ensureEmailNotTaken(Model, email);
         validatePassword(password, userGeneralData.fecha_nacimiento);
 
         const hashedPassword = await hashPassword(password);
-        const userData = normalizeUserdata(email, hashedPassword, ...userGeneralData);
+        const userData = normalizeUserdata(email, hashedPassword, userGeneralData);
 
         /*const userData = {
             ...userGeneralData,
@@ -27,4 +27,4 @@ export const registerService = async (data, Model) => {
     } catch (error) {
         throw new InternalServerError('Error al crear el registro solicitado', 500, error);
     }
-}
+};
