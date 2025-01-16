@@ -7,7 +7,7 @@ export const dbConnect = async () => {
         await dbConfig.authenticate();
         // en este punto inicia los modelos y configura las asociaciones
         initUsuario(dbConfig)
-        await dbConfig.sync(); // aca  se uede poner { alter: true } para modificar las tablas
+        await dbConfig.sync({ alter: true });
         console.log("Base de datos conectada a postgres a traves de sequelize");
     } catch (error) {
         console.error('No pudimos conectarnos a la DB', error);

@@ -85,7 +85,13 @@ export const initUsuario = (dbConfig) => {
                 type: DataTypes.BOOLEAN,
                 allowNull: false,
                 defaultValue: false,
-            }
+            },
+            resetPasswordToken: {
+                type: DataTypes.STRING,
+            },
+            resetPasswordExpires: {
+                type: DataTypes.DATE,
+            },
         },
         {
             sequelize: dbConfig,

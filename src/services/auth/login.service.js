@@ -8,11 +8,15 @@ import { config } from '../../config/env.config.js';
 import { normalizeUserPrivateData } from '../../utils/normalize/user.js';
 import { AuthError } from '../../errors/TypeError.js';
 
-const secretKey = config.secretKey;
+const { secretKey } = config;
 
 export const loginService = async ({email, password}) => {
     try {
-        const user = await Usuario.findOne({ where: { email } });
+        const user = await Usuario.findOne({ where: { email },
+            attributes: {
+                exclude: ['resetPasswordExpire', 'resetPasswordToken']
+            } 
+         });
         isNotFound(user);
         const passwordMatch = await comparePassword(password, user.password);
         isNotMatchedPassword(passwordMatch);
